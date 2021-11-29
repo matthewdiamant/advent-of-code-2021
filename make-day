@@ -1,9 +1,17 @@
 #!/bin/zsh
 
-DAY=$1
+DAY=day-$1
 
-cp -r ./template/. ./day-$DAY
-cd ./day-$DAY
-mv ./haskell.hs ./day-$DAY.hs
-mv ./rust.rs ./day-$DAY.rs
-mv ./python.py ./day-$DAY.py
+cp -r ./template/. ./$DAY
+cd ./$DAY
+mv ./haskell.hs ./$DAY.hs
+mv ./rust.rs ./$DAY.rs
+mv ./python.py ./$DAY.py
+
+echo "[package]
+name = '$DAY'
+version = '1.0.0'
+
+[[bin]]
+name = '$DAY'
+path = './$DAY.rs'" >> Cargo.toml
