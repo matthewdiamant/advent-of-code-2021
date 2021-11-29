@@ -1,0 +1,9 @@
+#!/bin/zsh
+
+DAY=$1
+
+cp -r ./template/. ./day-$DAY
+cd ./day-$DAY
+mv ./haskell.hs ./day-$DAY.hs
+mv ./rust.rs ./day-$DAY.rs
+mv ./python.py ./day-$DAY.py
