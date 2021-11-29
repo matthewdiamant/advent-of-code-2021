@@ -2,11 +2,15 @@
 
 DAY=day-$1
 
+# copy template
+
 cp -r ./template/. ./$DAY
 cd ./$DAY
 mv ./haskell.hs ./$DAY.hs
 mv ./rust.rs ./$DAY.rs
 mv ./python.py ./$DAY.py
+
+# make Cargo.toml
 
 echo "[package]
 name = '$DAY'
@@ -15,6 +19,8 @@ version = '1.0.0'
 [[bin]]
 name = '$DAY'
 path = './$DAY.rs'" >> Cargo.toml
+
+# get input
 
 curl "https://adventofcode.com/2021/day/$1/input" \
   -H "cookie: session=53616c7465645f5f6619a217f5ae0aa5ceebc0453f687eb48dbabfd1c99d20215488952cebec6ef7e163e7b21d35d14c" >> input.txt
