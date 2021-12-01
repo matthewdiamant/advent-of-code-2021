@@ -1,11 +1,14 @@
 main = do
   contents <- readFile "input.txt"
   let input = map read (lines contents)
-  print (solve_part_1 input 0)
+  print (solve input 0 0)
+  print (solve input 2 0)
 
-solve_part_1 :: [Int] -> Int -> Int
-solve_part_1 [x] count = count
-solve_part_1 (x:xs) count =
-  solve_part_1 xs (count + countIncrease x (head xs))
+solve :: [Int] -> Int -> Int -> Int
+solve (x:xs) idx count =
+  if length xs == idx
+  then count
+  else
+    solve xs idx (count + countIncrease x (xs !! idx))
 
 countIncrease a b = if b > a then 1 else 0
