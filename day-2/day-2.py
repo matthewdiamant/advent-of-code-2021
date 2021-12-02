@@ -6,31 +6,31 @@ def parse_input(input):
 
 def solve_part_1(input):
     input = parse_input(input)
-    h = 0
-    d = 0
+    horizontal = 0
+    depth = 0
     for [direction, value] in input:
         if direction == 'up':
-            d += -value
+            depth -= value
         if direction == 'down':
-            d += value
+            depth += value
         if direction == 'forward':
-            h += value
-    return h * d
+            horizontal += value
+    return horizontal * depth
 
 def solve_part_2(input):
     input = parse_input(input)
-    h = 0
-    d = 0
-    a = 0
+    horizontal = 0
+    depth = 0
+    aim = 0
     for [direction, value] in input:
         if direction == 'up':
-            a -= value
+            aim -= value
         if direction == 'down':
-            a += value
+            aim += value
         if direction == 'forward':
-            h += value
-            d += a * value
-    return h * d
+            horizontal += value
+            depth += aim * value
+    return horizontal * depth
 
 with open("input.txt") as f:
     input = f.read()
