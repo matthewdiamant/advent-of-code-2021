@@ -6,10 +6,8 @@ def parse_input(input):
 def output(map):
     return "\n".join(["".join(line) for line in map])
 
-def epoch(old_map):
-    map = [[char for char in line] for line in old_map]
+def move_right(map):
     max_x = len(map[0])
-    max_y = len(map)
     frozen = set()
     for y, line in enumerate(map):
         for x, space in enumerate(line):
@@ -24,6 +22,9 @@ def epoch(old_map):
                     frozen.add((x, y))
                 else:
                     map[y][x] = ">"
+
+def move_down(map):
+    max_y = len(map)
     frozen = set()
     for y, line in enumerate(map):
         for x, space in enumerate(line):
@@ -38,6 +39,11 @@ def epoch(old_map):
                     frozen.add((x, y))
                 else:
                     map[y][x] = "v"
+
+def epoch(old_map):
+    map = [[char for char in line] for line in old_map]
+    move_right(map)
+    move_down(map)
     return map
 
 def solve(input):
@@ -51,15 +57,15 @@ def solve_n(input, n):
         map = new_map
     return output(map)
 
-def solve2(input):
-    map = parse_input(input)
+def solve_count(input):
+    map = ""
+    new_map = parse_input(input)
     iterations = 0
-    while True:
+    while output(map) != output(new_map):
+        map = new_map
         new_map = epoch(map)
         iterations += 1
-        if output(map) == output(new_map):
-            return iterations
-        map = new_map
+    return iterations
 
 with open("./input.txt") as f:
     input = f.read()
@@ -131,6 +137,6 @@ v....v>v>.
 v>.....vv.""")
 
     def test_solve(self):
-        self.assertEqual(solve2(input.strip()), 305)
+        self.assertEqual(solve_count(input.strip()), 305)
 
 unittest.main()
